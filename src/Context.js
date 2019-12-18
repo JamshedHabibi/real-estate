@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {selectBoxOptionsData} from './data'
+import {propertyData} from './propertydata'
 
 const Context = React.createContext();
 
@@ -9,7 +10,7 @@ class Provider extends Component {
         moreOptionsActivated: true,
         selectBox: [],
         selectBoxValues: [],
-        apiIsLoaded: false,
+        //apiIsLoaded: false,
         properties: [],
         listings: [],
         filteredProperties: [],
@@ -26,7 +27,8 @@ class Provider extends Component {
 
     componentDidMount() {
         this.getSelectBoxOptions();
-        fetch("/api?encoding=json&pretty=1&action=search_listings&country=uk&listing_type=buy&place_name=london&price_max=650000&bedroom_max=4&number_of_results=50&sort=newest")
+        /*const nestoriaBaseUrl = 'https://api.nestoria.co.uk/';
+        fetch(`${nestoriaBaseUrl}/api?encoding=json&pretty=1&action=search_listings&country=uk&listing_type=buy&place_name=london&price_max=650000&bedroom_max=4&number_of_results=50&sort=newest`)
             .then(res => res.json())
             .then(json => {
                 this.setState({apiIsLoaded: true, properties: json, listings: json.response.listings})
@@ -36,11 +38,21 @@ class Provider extends Component {
             })
             .then(() => {
                 return !this.state.apiIsLoaded ? null : this.splitListingKeywords();
-             })
+             })*/
+        this.getPropertyData();
+    }
+
+    getPropertyData = () => {
+        let tempProperties = [];
+        propertyData.response.listings.map(property => {
+            let tempProperty = {...property};
+            tempProperties = [...tempProperties, tempProperty];
+        })
+        this.setState({properties: tempProperties}, () => this.setTotalPages())
     }
 
     splitListingKeywords = () => {
-        let propertyListings = this.state.properties.response.listings;
+        let propertyListings = this.state.properties;
             for (let i=0; i<propertyListings.length; i++) {
                     let splitKeywords = propertyListings[i].keywords.split(", ");
                     splitKeywords.push('');
@@ -67,7 +79,8 @@ class Provider extends Component {
     }
 
     searchBoxFilter = (apiListings, tempArr) => {
-        apiListings = this.state.properties.response.listings;
+        this.splitListingKeywords();
+        apiListings = this.state.properties;
         let searchCriteria = document.getElementsByClassName('searchbox')[0].value.replace(/\w\S*/g, c => c.charAt(0).toUpperCase() + c.substr(1).toLowerCase()).split(" ");
         let propertyFiltered = [...this.state.filteredProperties];
         tempArr = propertyFiltered.filter(prop => prop.new_keywords.indexOf(searchCriteria) > -1);
@@ -94,7 +107,7 @@ class Provider extends Component {
         
 
     propertyTypeFilter = () => {
-        let apiListings = this.state.properties.response.listings;
+        let apiListings = this.state.properties;
         let property = document.getElementById('property-type-box').value.toLowerCase();
         let propertyFiltered = [...this.state.filteredProperties];
         let tempArr = propertyFiltered.filter(prop => prop.property_type === property);
@@ -104,7 +117,7 @@ class Provider extends Component {
     }
 
     minBedFilter = () => {
-        let apiListings = this.state.properties.response.listings;
+        let apiListings = this.state.properties;
         let minBedNo = document.getElementById('min-bed-box').value;
         let propertyFiltered = [...this.state.filteredProperties];
         let tempArr = propertyFiltered.filter(prop => prop.bedroom_number >= minBedNo);
@@ -114,7 +127,7 @@ class Provider extends Component {
     }
 
     maxBedFilter = () => {
-        let apiListings = this.state.properties.response.listings;
+        let apiListings = this.state.properties;
         let maxBedNo = document.getElementById('max-bed-box').value;
         let propertyFiltered = [...this.state.filteredProperties];
         let tempArr = propertyFiltered.filter(prop => prop.bedroom_number <= maxBedNo);
@@ -124,7 +137,7 @@ class Provider extends Component {
     }
 
     minPriceFilter = () => {
-        let apiListings = this.state.properties.response.listings;
+        let apiListings = this.state.properties;
         let price = document.getElementById('min-price-box').value;
         let propertyFiltered = [...this.state.filteredProperties];
         let tempArr = propertyFiltered.filter(prop => prop.price >= price);
@@ -134,7 +147,7 @@ class Provider extends Component {
     }
     
     maxPriceFilter = () => {
-        let apiListings = this.state.properties.response.listings;
+        let apiListings = this.state.properties;
         let price = document.getElementById('max-price-box').value;
         let propertyFiltered = [...this.state.filteredProperties];
         let tempArr = propertyFiltered.filter(prop => prop.price <= price);
@@ -162,7 +175,7 @@ class Provider extends Component {
 
     setTotalPages = () => {
         let tempArr=[];
-        let tempTotalPages = Math.ceil(this.state.properties.response.listings.length/7);
+        let tempTotalPages = Math.ceil(this.state.properties.length/10);
         for (let i=1;i<=tempTotalPages;i++) {
             tempArr.push(i)
         }

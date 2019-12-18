@@ -24,9 +24,9 @@ export default class HomePage extends Component {
                         </div>
                         <Consumer>
                             {value => {
-                                if (!value.apiIsLoaded) {
+                                /*if (!value.apiIsLoaded) {
                                     return <React.Fragment></React.Fragment>
-                                } else {
+                                } else {*/
                                     return (
                                         <div>
                                             <input id='homepage-searchbox' className='searchbox' type='text' placeholder='Search for Garden, Balcony, Kitchen etc...'/>
@@ -41,7 +41,7 @@ export default class HomePage extends Component {
                                             </Link>
                                         </div>
                                 )
-                            }
+                            
                             }}
                         </Consumer>
                         

@@ -15,19 +15,19 @@ export default class PropertyPage extends Component {
                 <Consumer>
                     {value => {
                         return value.filteredProperties.length === 0 ?
-                        <h3 className='result-count pt-4'>Results: {value.listings.length}</h3> :
+                        <h3 className='result-count pt-4'>Results: {value.properties.length}</h3> :
                         <h3 className='result-count pt-4'>Results: {value.filteredProperties.length}</h3>
                     }}
                 </Consumer>
                 <Consumer>
                     {value => {
-                        if (!value.apiIsLoaded) {
-                            return <h1>Loading....</h1>
-                        } else if (value.filteredProperties.length === 0) {
+                       /* if (!value.apiIsLoaded) {
+                            return <h1>Loading....</h1>*/
+                        if (value.filteredProperties.length === 0) {
                                 return (
                                     <div className='property-listings-section'>
                                     <div className='container'>
-                                    {value.listings.map(property => {
+                                    {value.properties.map(property => {
                                         return <Properties key={property.lister_url} property={property}/>
                                     }    
                                     )}
