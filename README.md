@@ -8,7 +8,7 @@ JavaScript,
 HTML,
 CSS,
 Bootstrap,
-Nestoria API,
+Nestoria API
 
 # Installation
 Can be hosted locally if folder is downloaded.
