@@ -7,8 +7,7 @@ JavaScript
 HTML
 CSS
 Bootstrap
-Google Maps API
-Paypal Express Checkout API
+Nestoria API
 
 # Installation
 Can be hosted locally if folder is downloaded.
