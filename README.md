@@ -1,4 +1,4 @@
-# React E-Bike Shop
+# Real Estate Web Application
 	Developed a web application, using React & JavaScript that allows users to effortlessly search for properties in London and filter the properties to select their ideal home. Live version can be viewed at - https://jamsheds-real-estate.netlify.com
 
 # Tech/Framework Used
