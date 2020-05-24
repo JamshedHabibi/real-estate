@@ -29,7 +29,12 @@ class Provider extends Component {
 		this.getSelectBoxOptions();
 		const nestoriaBaseUrl = 'https://api.nestoria.co.uk/';
 		fetch(
-			`${nestoriaBaseUrl}api?encoding=json&pretty=1&action=search_listings&country=uk&listing_type=buy&place_name=london&price_max=650000&bedroom_max=4&number_of_results=50&sort=newest`
+			`${nestoriaBaseUrl}api?encoding=json&pretty=1&action=search_listings&country=uk&listing_type=buy&place_name=london&price_max=650000&bedroom_max=4&number_of_results=50&sort=newest`,
+			{
+				headers: {
+					'Access-Control-Allow-Origin': '*',
+				},
+			}
 		)
 			.then((res) => res.json())
 			.then((json) => {
