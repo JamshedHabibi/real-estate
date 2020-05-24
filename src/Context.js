@@ -10,7 +10,7 @@ class Provider extends Component {
 		moreOptionsActivated: true,
 		selectBox: [],
 		selectBoxValues: [],
-		apiIsLoaded: false,
+		apiIsLoaded: true,
 		properties: [],
 		listings: [],
 		filteredProperties: [],
@@ -28,7 +28,7 @@ class Provider extends Component {
 	componentDidMount() {
 		this.getSelectBoxOptions();
 		const nestoriaBaseUrl = 'https://api.nestoria.co.uk/';
-		fetch(
+		/*fetch(
 			`${nestoriaBaseUrl}api?encoding=json&pretty=1&action=search_listings&country=uk&listing_type=buy&place_name=london&price_max=650000&bedroom_max=4&number_of_results=50&sort=newest`,
 			{
 				headers: {
@@ -36,6 +36,7 @@ class Provider extends Component {
 				},
 			}
 		)
+			.catch(() => console.log(response))
 			.then((res) => res.json())
 			.then((json) => {
 				this.setState({
@@ -49,8 +50,8 @@ class Provider extends Component {
 			})
 			.then(() => {
 				return !this.state.apiIsLoaded ? null : this.splitListingKeywords();
-			});
-		//	this.getPropertyData();
+			});*/
+		this.getPropertyData();
 	}
 
 	getPropertyData = () => {
